@@ -60,9 +60,9 @@ update msg model =
     case msg of
         AddOrder ->
             case toInt model.orderInput of
-                Err msg ->
+                Err _ ->
                     { model
-                        | error = Just msg
+                        | error = Just "Broj porudzbine mora biti broj."
                         , orderInput = ""
                     }
 
@@ -112,8 +112,8 @@ renderOrder order =
 renderErrors : Maybe String -> Html Msg
 renderErrors error =
     case error of
-        Just _ ->
-            div [ class "error" ] [ text "Broj porudzbine mora biti broj." ]
+        Just msg ->
+            div [ class "error" ] [ text msg ]
 
         Nothing ->
             div [] []
